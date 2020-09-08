@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.css">
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+    <h1 class="display-4">Quantidade de Atividades Lançadas: </h1>
+
+    <div class="container">
+        <h2 id="total">000000</h2>
+        <button class="btn btn-outline-primary" onclick="atualizar()">Atualizar</button>
+    </div>
+
+    <script>
+        async function obterTotal(){
+            let resposta = await fetch('http://educacaocaraguatatuba.com.br/gestao-escolar/api/QtdRegistros.php');
+            let dados = await resposta.json();
+            return dados;  
+        }
+
+        function atualizar(){
+            let elemento = document.querySelector('#total');
+            obterTotal().then(dados => elemento.innerHTML = dados.total) ;
+        }
+    </script>
+</body>
+</html>

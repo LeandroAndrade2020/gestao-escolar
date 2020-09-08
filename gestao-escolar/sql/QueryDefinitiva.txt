@@ -1,0 +1,54 @@
+select matricula.nome, matricula.escola, matricula.ra, matricula.serie, matricula.turma, faltas.dia, faltas.rg_professor, faltas.peb1
+from matricula left join faltas on matricula.ra = faltas.ra_aluno_falta where matricula.serie = '2' and
+turma = 'd' and escola = 'CEI/EMEI LEONOR MENDES DE BARROS' order by matricula.nome asc;
+
+
+
+--Query Definitiva para PEB I
+
+select distinct matricula.nome, matricula.escola, matricula.ra, matricula.serie, matricula.turma,faltas.dia, faltas.rg_professor,
+(select sum(faltas.peb1 is not null) from faltas where faltas.ra_aluno_falta = matricula.ra) 
+from matricula left join faltas on matricula.ra = faltas.ra_aluno_falta where matricula.serie = '2' and
+turma = 'd' and escola = 'CEI/EMEI LEONOR MENDES DE BARROS' group by matricula.nome ;
+
+--Query para PEB II
+
+select matricula.nome, matricula.escola, matricula.ra, matricula.serie, matricula.turma,faltas.dia, faltas.rg_professor,
+(select sum(if(a1='Arte',1,0 )+if(a2='Arte',1,0 )+if(a3='Arte',1,0 )+if(a4='Arte',1,0 )+if(a5='Arte',1,0 )+if(a6='Arte',1,0 )) 
+from faltas where faltas.ra_aluno_falta = matricula.ra) as TotalFaltas
+from matricula left join faltas on matricula.ra = faltas.ra_aluno_falta where matricula.serie = '7' and
+turma = 'A' and escola = 'CIEFI PROF� EDNA MARIA NOGUEIRA FERRAZ' 
+ group by matricula.nome ;
+
+--Query para visualizar dia especifico PEB II
+
+select matricula.nome, matricula.escola, matricula.ra, matricula.serie, matricula.turma,faltas.dia, faltas.rg_professor,
+(select sum(if(dia = '03/10/2019',if(a1='Arte',1,0),0)+if(dia = '03/10/2019',if(a2='Arte',1,0),0)
++if(dia = '03/10/2019',if(a3='Arte',1,0),0)+if(dia = '03/10/2019',if(a4='Arte',1,0),0)
++if(dia = '03/10/2019',if(a5='Arte',1,0),0)+if(dia = '03/10/2019',if(a6='Arte',1,0),0))
+from faltas where faltas.ra_aluno_falta = matricula.ra and dia = '03/10/2019') as TotalFaltas
+from matricula left join faltas on matricula.ra = faltas.ra_aluno_falta where matricula.serie = '7' and
+turma = 'A' and escola = 'CIEFI PROF� EDNA MARIA NOGUEIRA FERRAZ' and dia = '03/10/2019'
+order by faltas.dia ;
+
+--Query para visualizar dia especifico sem retornar dia, na qual necessita passar por parametro o dia
+
+select distinct matricula.nome, matricula.escola, matricula.ra, matricula.serie, matricula.turma, faltas.rg_professor,
+(select sum(if(dia = '02/10/2019',if(a1='Arte',1,0),0)+if(dia = '02/10/2019',if(a2='Arte',1,0),0)
++if(dia = '02/10/2019',if(a3='Arte',1,0),0)+if(dia like '02/10/2019',if(a4='Arte',1,0),0)
++if(dia = '02/10/2019',if(a5='Arte',1,0),0)+if(dia = '02/10/2019',if(a6='Arte',1,0),0))
+from faltas where faltas.ra_aluno_falta = matricula.ra) as TotalFaltas
+from matricula left join faltas on matricula.ra = faltas.ra_aluno_falta where matric
+
+
+-- Dias específicos PEB 1
+
+SELECT distinct matricula.nome, matricula.ra, 
+(SELECT sum(if(dia = '28/10/2019',if(peb1='PEB1',1,0),0)) from faltas 
+where faltas.ra_aluno_falta = matricula.ra) AS '28/10/2019',
+
+(SELECT sum(if(dia = '29/10/2019',if(peb1='PEB1',1,0),0)) from faltas 
+where faltas.ra_aluno_falta = matricula.ra) AS '29/10/2019' from matricula 
+
+left join faltas on matricula.ra = faltas.ra_aluno_falta where matricula.serie = '1' and turma = 'A' 
+and escola = 'CEIEMEI PROFª APARECIDA MARIA PIRES DE MENESES' order by matricula.nome

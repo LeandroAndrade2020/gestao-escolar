@@ -1,0 +1,78 @@
+.box {
+  text-align: center;
+  height: 500px;
+  max-width: 300px;
+}
+
+.menu .btn{
+  margin: 10px !important;
+}
+
+.row {
+
+  width: 396px;
+}
+
+.nota{
+  width: 50px !important;
+  margin: 0 auto !important;
+  text-align: center;
+}
+
+table th{
+  color: red;
+}
+
+.navbar-text{
+  display: default !important;
+  padding: 0 !important; 
+}
+
+#nav{
+  position: fixed;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.box{
+  height: auto !important;
+}
+
+.box{
+  background-color: rgba(0,0,0,.05);
+  border-radius: 15px;
+}
+
+@media only screen and (max-width: 400px) {
+  .box {
+    margin: 10px;
+    padding: 15px;
+    max-width: 90%;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 401px) {
+  .box {
+    margin: 15px;
+    padding: 30px;
+    max-width: 75%;
+  }
+
+  .box a.btn {
+    max-width: 300px;
+    margin: 5px auto !important;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .box{
+    margin: 15px;
+    padding: 30px;
+    max-width: 45%;
+  }
+
+  .box a.btn {
+    max-width: 300px;
+    margin: 10px auto !important;
+  }
+}
